@@ -1,0 +1,107 @@
+Explaintation of Each line of code
+
+ cv2 module in pythone 
+
+ The cv2 module in Python is a library of functions and algorithms that are used for computer vision tasks. It is part of the OpenCV (Open Source Computer Vision Library) project, which is a free and open-source software library for computer vision and machine learning. The cv2 module provides a wide range of tools that can be used for various computer vision applications such as image and video processing, object detection, tracking, and segmentation.
+
+Some of the common uses of the cv2 module in Python include:
+
+Reading, writing, and displaying images and videos.
+Applying various image processing techniques such as filtering, edge detection, and thresholding to enhance images.
+Detecting and recognizing objects in images using feature detection and machine learning algorithms.
+Performing image segmentation and contour detection for object tracking and analysis.
+Performing camera calibration and distortion correction for computer vision applications.
+
+
+for more details please refer python module package and documentation 
+-------------------------------------------------------------------
+
+
+To extract the area and perimeter of a leaf using OpenCV (cv2) in Python, you can follow the steps below:
+
+Import the necessary libraries: cv2 and numpy.
+Load the image of the leaf.
+Convert the image to grayscale.
+Apply thresholding to obtain a binary image.
+Find the contours in the binary image.
+Calculate the area and perimeter of the leaf using the contours.
+Display the results.
+
+--------------------------------------------------------------------
+
+
+import cv2
+import numpy as np
+
+Here, we import the cv2 and numpy libraries.
+
+
+
+img = cv2.imread('leaf.jpg')
+
+
+This line loads the image 'leaf.jpg' into a NumPy array called img.
+
+
+
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+
+
+Here, we convert the color image to grayscale using the cvtColor() function. The COLOR_BGR2GRAY argument specifies that we want to convert from BGR (Blue Green Red) color space to grayscale.
+
+
+
+
+_, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+
+
+This line applies thresholding to the grayscale image to obtain a binary image. The threshold() function applies a binary threshold to the image, where pixel values above a certain threshold value are set to 255 (white) and pixel values below the threshold are set to 0 (black). The THRESH_BINARY_INV+THRESH_OTSU arguments specify that we want to use the Otsu's thresholding method, which automatically determines the optimal threshold value, and that we want to invert the binary image (black and white pixels are swapped).
+
+
+
+
+
+contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+
+This line finds the contours in the binary image using the findContours() function. The RETR_EXTERNAL argument specifies that we only want to find the outer contours (which correspond to the leaf in this case) and the CHAIN_APPROX_SIMPLE argument specifies that we want to use a simple approximation method to compress the contour and reduce the number of points.
+
+
+
+
+area = cv2.contourArea(contours[0])
+
+Here, we use the contourArea() function to calculate the area of the leaf. We assume that the first contour found corresponds to the leaf, so we use contours[0] to access it.
+
+
+
+
+perimeter = cv2.arcLength(contours[0], True)
+
+
+This line calculates the perimeter of the leaf using the arcLength() function. The True argument specifies that the contour is closed, so the perimeter is calculated as the sum of all contour segment lengths.
+
+
+
+
+print("Area: ", area)
+print("Perimeter: ", perimeter)
+cv2.imshow('image', img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+Finally, we print the area and perimeter values and display the original image using imshow(). We use waitKey() to wait for a keyboard event and destroyAllWindows() to close all windows.
+
+
+
+
+
+
+
+
+
+
+
+
